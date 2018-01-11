@@ -1,3 +1,5 @@
+//Testing for github
+
 // Create array to store all of the cards
 var cards = ["queen", "queen", "king", "king"];
 
