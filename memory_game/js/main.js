@@ -22,7 +22,7 @@ var cards = [
   }
 ];
 
-// Create array to store the cards in play;
+// Create array to store cards in play;
 var cardsInPlay = [];
 
 // Create function to check if there is a match
@@ -36,24 +36,45 @@ var checkForMatch = function () {
 };
 
 // Create functon to represent flipping card
-var flipCard = function (cardId) {
-// Show card that user just flipped
-  console.log("User flipped " + cards[cardId].card);
+var flipCard = function () {
+// Get data-id attribute of the card that was flipped and store it in variable
+cardId = this.getAttribute('data-id');
+console.log(cardId);
 
 // Add card to array of cards that are in play
 cardsInPlay.push(cards[cardId].card);
 
-// Image path in console
-console.log(cards[cardId].suit)
+// Show card image
+this.setAttribute('src', cards[cardId].cardImage);
 
 // Check if two cards have been played
 if (cardsInPlay.length === 2) {
   checkForMatch();
-// Empty cards array for next attempt
+// Empty cards for next attempt
 cardsInPlay = [];
   }
 };
 
-// Calls flipCard after it has been defined
-flipCard(0);
-flipCard(2);
+// Function to create new game board
+var createBoard = function () {
+  // Cards array to add each card for board
+  for (var i = 0; i < cards.length; i++) {
+    // Create img element and store it
+    var cardElement = document.createElement('img');
+
+    // Set src attribute for the back of the card
+    cardElement.setAttribute('src', 'images/back.png');
+
+    // Set 'data-id' attribute to the current element
+    cardElement.setAttribute('data-id', i);
+
+    // Add event listener so when card is clicked, flipCard will happen
+    cardElement.addEventListener('click', flipCard);
+
+    // Add card to the board
+    document.getElementById('game-board').appendChild(cardElement);
+  }
+}
+
+// Function to create board
+createBoard();
